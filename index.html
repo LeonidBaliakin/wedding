@@ -9,7 +9,7 @@
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link relpreconnect="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
@@ -26,10 +26,6 @@
 
       --maxw: 980px;
       --pad: 18px;
-
-      /* Фото должны лежать рядом с index.html */
-      --hero-image: url('hero.jpg');
-      --hero-dark: .45;
 
       --serif: "Cormorant Garamond", serif;
       --sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -54,99 +50,114 @@
       html{scroll-behavior:auto;}
     }
 
-    /* ===== HERO (parallax) =====
-       Мы используем псевдо-слой ::before и двигаем его через JS. */
+    /* ===== HERO (как надо: фото не увеличиваем, заполняет блок) ===== */
     .hero{
-      min-height: 92vh;
-      display:flex;
-      align-items:flex-end;
-      position:relative;
-      overflow:hidden;
-      background:#000; /* подложка */
+      padding: 22px 0 10px;
+      background: linear-gradient(180deg, var(--c2), var(--c2));
     }
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0; /* ✅ без запасов */
-  background-image:
-    linear-gradient(rgba(0,0,0,var(--hero-dark)), rgba(0,0,0,var(--hero-dark))),
-    var(--hero-image);
-  background-size: cover;          /* ✅ заполняет весь блок */
-  background-position: center;
-  transform: translate3d(0,0,0);   /* ✅ без scale */
-  will-change: transform;
-  z-index:0;
-}
-    .hero::after{
-      content:"";
-      position:absolute; left:0; right:0; bottom:0;
-      height: 120px;
-      background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(244,234,229,.95));
-      z-index:1;
-      pointer-events:none;
+    .heroCard{
+      background: rgba(250,250,250,.55);
+      border: 1px solid rgba(153,143,138,.22);
+      border-radius: 22px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.08);
+      overflow: hidden;
     }
-    .heroInner{width:100%; position:relative; z-index:2; padding: 28px 0 26px;}
-    .heroTitle{text-align:center; color:#fff; padding: 10px 0 18px;}
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 16px;
+      align-items:stretch;
+      padding: 16px;
+    }
+    @media (max-width: 860px){
+      .heroGrid{grid-template-columns:1fr}
+    }
 
-    .names{
+    .heroLeft{padding: 16px 14px 14px;}
+    .eyebrow{
+      font-family: var(--serif);
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(18,19,21,.55);
+      margin-bottom: 10px;
+    }
+    .heroNames{
       font-family: var(--serif);
       font-weight: 500;
-      font-size: clamp(44px, 9vw, 86px);
+      font-size: clamp(44px, 7vw, 78px);
       line-height: .95;
       letter-spacing: .02em;
       margin: 0 0 10px;
       text-transform: uppercase;
-      white-space: nowrap;
-      text-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
-    @media (max-width: 520px){
-      .names{font-size: 44px; letter-spacing:.015em;}
-    }
-    @media (max-width: 420px){
-      .names{font-size: 38px; letter-spacing:.01em;}
-    }
-
-    .heroDate{
+    .heroDateLine{
       font-family: var(--serif);
       font-weight: 500;
-      font-size: clamp(20px, 4vw, 30px);
+      font-size: 20px;
       letter-spacing: .14em;
       text-transform: uppercase;
-      margin: 0;
-      opacity: .92;
-      text-shadow: 0 10px 30px rgba(0,0,0,.22);
+      color: rgba(18,19,21,.65);
+      margin: 0 0 14px;
+    }
+    .heroLead{
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(18,19,21,.86);
+      margin: 0 0 18px;
+      max-width: 56ch;
     }
 
-    .heroActions{
-      display:flex;
-      gap: 10px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top: 18px;
-    }
+    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top: 16px;}
+
     .btn{
-      font-family: var(--sans);
-      border:1px solid rgba(255,255,255,.35);
-      background: rgba(255,255,255,.08);
-      color:#fff;
-      padding: 12px 16px;
-      border-radius: 999px;
-      text-decoration:none;
-      font-size: 14px;
+      border:0;
+      padding: 12px 18px;
+      border-radius: 14px;
       cursor:pointer;
-      backdrop-filter: blur(6px);
-      transition: transform .18s ease, background .25s ease, border-color .25s ease;
-      will-change: transform;
+      font-weight: 600;
+      font-size: 16px;
+      transition: transform .06s ease, opacity .2s ease;
+      letter-spacing: .01em;
+      text-decoration:none;
+      display:inline-block;
+      user-select:none;
     }
-    .btn:hover{transform: translateY(-1px);}
-    .btn:active{transform: translateY(0px) scale(.99);}
+    .btn:active{transform: translateY(1px)}
     .btnPrimary{
-      border-color: transparent;
-      background: linear-gradient(135deg, rgba(215,177,156,.92), rgba(153,143,138,.92));
+      background: linear-gradient(135deg, rgba(215,177,156,.95), rgba(153,143,138,.95));
+      color: #fff;
+      box-shadow: 0 12px 26px rgba(215,177,156,.25);
+    }
+    .btnGhost{
+      background: transparent;
+      border: 1px solid rgba(153,143,138,.35);
+      color: var(--text);
+    }
+
+    .heroMedia{
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(153,143,138,.22);
+      background: #efe6e0;
+      min-height: 420px;
+      position: relative;
+    }
+    /* ✅ главное: фото НЕ увеличиваем, просто заполняет блок */
+    .heroMedia img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit: cover;
+      object-position: center;
+      transform:none !important;
+    }
+    @media (max-width: 860px){
+      .heroMedia{min-height: 360px;}
     }
 
     /* ===== Paper sections ===== */
-    .paper{background: var(--c2); padding: 26px 0 10px;}
+    .paper{background: var(--c2); padding: 10px 0 10px;}
     .section{padding: 34px 0; background: transparent;}
     .divider{height:1px; background: rgba(153,143,138,.25); max-width: var(--maxw); margin: 0 auto;}
     .kicker{
@@ -186,40 +197,32 @@
     .revealDelay2{transition-delay:.22s;}
     .revealDelay3{transition-delay:.32s;}
 
-/* ===== Love story (с отступами по бокам) ===== */
-.storyGrid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:22px;
-  align-items:start;
-}
-
-/* ✅ теперь НЕ full-bleed, а внутри wrap */
-.storyPhotos{
-  width: 100%;
-  display:grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-@media (min-width:720px){
-  .storyPhotos{
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-}
-
-.storyWide{
-  width:100%;
-  display:block;
-  border-radius: 18px;
-  box-shadow: 0 14px 34px rgba(0,0,0,.08);
-  transform: scale(1);
-  transition: transform .7s cubic-bezier(.2,.8,.2,1);
-  will-change: transform;
-}
-
-.storyWide:hover{transform: scale(1.02);}
+    /* ===== Love story (отступы по бокам сохраняем внутри wrap) ===== */
+    .storyGrid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:22px;
+      align-items:start;
+    }
+    .storyPhotos{
+      width: 100%;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width:720px){
+      .storyPhotos{
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+    }
+    .storyWide{
+      width:100%;
+      display:block;
+      border-radius: 18px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.08);
+      transform:none;
+    }
 
     /* ===== “Это мы!” rail ===== */
     .rail{
@@ -242,14 +245,13 @@
       border: 1px solid rgba(153,143,138,.22);
       scroll-snap-align: start;
       position:relative;
-      aspect-ratio: 3 / 4;       /* вертикально */
+      aspect-ratio: 3 / 4;
     }
     @media (min-width: 860px){ .ph{flex-basis: 42%;} }
-
     .ph img{
       width:100%;
       height:100%;
-      object-fit: cover;          /* красиво, но может подрезать */
+      object-fit: cover;
       display:block;
       background:#f4eae5;
     }
@@ -361,8 +363,8 @@
     .what{font-family: var(--sans); font-size: 16px; color: rgba(18,19,21,.82);}
     .hint{font-size: 13px; color: rgba(18,19,21,.55); margin-top: 8px;}
 
-    /* ===== Dress code ===== */
-    .dressBox{
+    /* ===== Boxes (dress + gifts) ===== */
+    .box{
       background: rgba(250,250,250,.55);
       padding: 22px;
       border: 1px solid rgba(153,143,138,.22);
@@ -479,12 +481,6 @@
     }
 
     footer{padding: 26px 0 40px; text-align:center; color: rgba(18,19,21,.55); font-size: 13px;}
-
-    /* ===== Telegram/mobile optimizations ===== */
-    @media (max-width: 720px){
-      .btn{backdrop-filter:none;}
-      .hero::before{inset:-14vh -12vw;} /* чуть больше запас */
-    }
   </style>
 </head>
 
@@ -492,17 +488,32 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <div class="heroInner">
-      <div class="wrap">
-        <div class="heroTitle">
-          <h1 class="names reveal">АННА &amp; ЛЕОНИД</h1>
-          <p class="heroDate reveal revealDelay1">17 ИЮНЯ 2026</p>
+    <div class="wrap">
+      <div class="heroCard reveal">
+        <div class="heroGrid">
 
-          <div class="heroActions reveal revealDelay2">
-            <a class="btn btnPrimary" href="#rsvp">Подтвердить присутствие</a>
-            <a class="btn" href="#places">Где и когда</a>
-            <a class="btn" href="#program">Программа дня</a>
+          <div class="heroLeft">
+            <div class="eyebrow">Свадебное приглашение</div>
+
+            <h1 class="heroNames">АННА &amp; ЛЕОНИД</h1>
+            <p class="heroDateLine">17 ИЮНЯ 2026</p>
+
+            <p class="heroLead">
+              Дорогие наши родные и друзья!<br>
+              Мы будем счастливы разделить с вами самый важный и тёплый день нашей жизни.
+            </p>
+
+            <div class="actions">
+              <a class="btn btnPrimary" href="#rsvp">Подтвердить присутствие</a>
+              <a class="btn btnGhost" href="#places">Где и когда</a>
+              <a class="btn btnGhost" href="#program">Программа дня</a>
+            </div>
           </div>
+
+          <div class="heroMedia" aria-label="Главное фото">
+            <img src="hero.jpg" alt="" loading="eager" decoding="async">
+          </div>
+
         </div>
       </div>
     </div>
@@ -537,11 +548,10 @@
             и счастливых моментов. Наши отношения развивались и крепли с каждым днём — и теперь мы готовы сделать следующий шаг.
           </p>
 
-          <!-- ✅ Фото на всю ширину (вылетает за паддинги wrap) -->
-<div class="storyPhotos" aria-label="Фото истории любви">
-  <img class="storyWide" src="love1.jpg" alt="" loading="lazy">
-  <img class="storyWide" src="love2.jpg" alt="" loading="lazy">
-</div>
+          <div class="storyPhotos reveal" aria-label="Фото истории любви">
+            <img class="storyWide" src="love1.jpg" alt="" loading="lazy">
+            <img class="storyWide" src="love2.jpg" alt="" loading="lazy">
+          </div>
 
           <p class="text reveal">
             Мы будем счастливы разделить этот особенный момент с вами и надеемся, что вы станете частью нашей дальнейшей истории.
@@ -616,7 +626,6 @@
               <b>Адрес:</b> Санкт-Петербург, Английская набережная, 28
             </p>
 
-            <!-- ✅ Яндекс.Карты вместо Google embed -->
             <iframe class="map" loading="lazy"
               src="https://yandex.ru/map-widget/v1/?text=%D0%90%D0%BD%D0%B3%D0%BB%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BD%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%2028%20%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3&z=16"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -636,7 +645,6 @@
               <b>Адрес:</b> посёлок Репино, Приморское шоссе, 444А
             </p>
 
-            <!-- ✅ Яндекс.Карты вместо Google embed -->
             <iframe class="map" loading="lazy"
               src="https://yandex.ru/map-widget/v1/?text=%D0%9F%D1%80%D0%B8%D0%BC%D0%BE%D1%80%D1%81%D0%BA%D0%BE%D0%B5%20%D1%88%D0%BE%D1%81%D1%81%D0%B5%20444%D0%90%20%D0%A0%D0%B5%D0%BF%D0%B8%D0%BD%D0%BE&z=16"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -682,10 +690,27 @@
     <section class="section" id="dress">
       <div class="wrap">
         <h2 class="center reveal">ДРЕСС-КОД</h2>
-        <div class="dressBox reveal revealDelay1">
+        <div class="box reveal revealDelay1">
           <p class="text">
             Стиль вечера — <b>торжественный праздничный</b>.<br>
             Будем рады, если вы выберете наряд в спокойной, элегантной гамме — близкой к оттенкам приглашения.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Gifts (НОВЫЙ БЛОК ПОСЛЕ ДРЕСС-КОДА) -->
+    <section class="section" id="gifts">
+      <div class="wrap">
+        <h2 class="center reveal">ПОЖЕЛАНИЯ К ПОДАРКАМ</h2>
+        <div class="box reveal revealDelay1">
+          <p class="text">
+            Мы очень ценим ваше внимание и будем рады любому подарку.<br>
+            И не важно, в какой конверт он будет упакован.<br><br>
+            Мы понимаем, что дарить цветы на свадьбу — это традиция, но мы не успеем насладиться их красотой в полной мере.<br>
+            Будем рады любой другой альтернативе (памятный сувенир, вино или в денежном эквиваленте).
           </p>
         </div>
       </div>
@@ -805,7 +830,6 @@
 
           <div class="qrBox reveal revealDelay1">
             <div class="qr">
-              <!-- ✅ По твоей папке: qr.jpg -->
               <img src="qr.jpg" alt="QR" loading="lazy" decoding="async" fetchpriority="low">
             </div>
             <div>
@@ -845,59 +869,7 @@
       els.forEach(el => io.observe(el));
     })();
 
-    // ====== HERO parallax (subtle) ======
-    (function(){
-      const hero = document.querySelector(".hero");
-      if (!hero) return;
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduce) return;
-
-      let raf = null;
-      const onScroll = () => {
-        if (raf) return;
-        raf = requestAnimationFrame(() => {
-          raf = null;
-          const y = window.scrollY || 0;
-          const max = hero.offsetHeight || 1;
-          const p = Math.min(1, y / max);
-          const translate = Math.round(p * 22); // px
-          hero.style.setProperty("--hero-parallax", translate + "px");
-          // двигаем слой ::before через transform на самом элементе
-          // (используем CSS var)
-          hero.style.setProperty("--hero-ty", translate);
-          // применим напрямую
-          hero.style.setProperty("--hero-translate", translate + "px");
-          hero.style.setProperty("transform", "translateZ(0)");
-          hero.style.setProperty("--_dummy", "1");
-          hero.style.setProperty("--_y", translate + "px");
-          // проще: задаём transform через style на псевдо нельзя, поэтому используем background-position через scroll
-          // но мы уже делаем transform на ::before, так что сделаем через CSS переменную:
-          hero.style.setProperty("--hero-shift", translate + "px");
-          hero.style.setProperty("--hero-shift-num", translate);
-          // реально применяется ниже через inline style в CSS? нет.
-          // Поэтому вместо этого используем маленький хак: меняем background-position на hero::before нельзя.
-          // Оставляем "легкий" вариант: двигаем сам .hero (не надо).
-        });
-      };
-
-      // Вариант 2 (надёжный): двигаем ::before через CSS переменную, которую читаем в CSS.
-      // Поэтому обновим CSS переменную на <section class="hero"> и в CSS используем её.
-      // Переменная уже выставляется ниже.
-      const apply = () => {
-        const y = window.scrollY || 0;
-        const max = hero.offsetHeight || 1;
-        const p = Math.min(1, y / max);
-        const shift = Math.round(p * 28); // px
-        hero.style.setProperty("--hero-shift", shift + "px");
-      };
-
-      const onScroll2 = () => requestAnimationFrame(apply);
-
-      window.addEventListener("scroll", onScroll2, { passive: true });
-      apply();
-    })();
-
-    // ====== Multi-select dropdowns (без повторного навешивания обработчиков) ======
+    // ====== Multi-select dropdowns ======
     const multiRoots = [...document.querySelectorAll("[data-multi]")];
 
     function getMultiValues(key){
@@ -940,7 +912,7 @@
     multiRoots.forEach(initMulti);
 
     // ======= RSVP -> Google Sheets =======
-    // ✅ ВАЖНО: вот тут меняешь ссылку на новый Apps Script, если нужно
+    // ✅ ВАЖНО: если “ключ забыл поменять” — меняешь ссылку тут
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8nHxMHIfYCT6O6l1F7VPQfjR0Ik8y3VlfiB7oalLimrhtevrDQOftVqCMYrDQqk3o/exec";
 
     const form = document.getElementById("rsvpForm");
@@ -997,44 +969,5 @@
     });
   </script>
 
-  <script>
-    // ====== HERO parallax (final - uses CSS var) ======
-    // Переприсваиваем с правильной логикой: двигаем ::before через CSS var
-    (function(){
-      const hero = document.querySelector(".hero");
-      if (!hero) return;
-
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduce) return;
-
-      // Подключаем переменную в CSS:
-      // .hero::before { transform: translate3d(0,var(--hero-shift, 0px),0) scale(1.05); }
-      // — добавим это правило через style API, чтобы не ломать верстку.
-      // Но проще: добавим прямо как CSSText ниже.
-      const style = document.createElement("style");
-      style.textContent = ".hero::before{transform: translate3d(0,var(--hero-shift, 0px),0) scale(1.05);} ";
-      document.head.appendChild(style);
-
-      let raf = null;
-      const update = () => {
-        raf = null;
-        const y = window.scrollY || 0;
-        const max = hero.offsetHeight || 1;
-        const p = Math.min(1, y / max);
-        const shift = Math.round(p * 28); // px
-        hero.style.setProperty("--hero-shift", shift + "px");
-      };
-
-      const onScroll = () => {
-        if (raf) return;
-        raf = requestAnimationFrame(update);
-      };
-
-      window.addEventListener("scroll", onScroll, { passive: true });
-      update();
-    })();
-  </script>
-
 </body>
 </html>
-
