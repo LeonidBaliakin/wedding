@@ -50,111 +50,122 @@
       html{scroll-behavior:auto;}
     }
 
-    /* ===== HERO (как надо: фото не увеличиваем, заполняет блок) ===== */
-    .hero{
-      padding: 22px 0 10px;
-      background: linear-gradient(180deg, var(--c2), var(--c2));
-    }
-    .heroCard{
-      background: rgba(250,250,250,.55);
-      border: 1px solid rgba(153,143,138,.22);
-      border-radius: 22px;
-      box-shadow: 0 18px 40px rgba(0,0,0,.08);
-      overflow: hidden;
-    }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.12fr .88fr;
-      gap: 16px;
-      align-items:stretch;
-      padding: 16px;
-    }
-    @media (max-width: 860px){
-      .heroGrid{grid-template-columns:1fr}
-    }
+/* ===== HERO (как надо: фото не увеличиваем, заполняет блок) ===== */
+.hero{
+  padding: 22px 0 10px;
+  background: linear-gradient(180deg, var(--c2), var(--c2));
+}
 
-    .heroLeft{padding: 16px 14px 14px;}
-    .eyebrow{
-      font-family: var(--serif);
-      font-size: 12px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(18,19,21,.55);
-      margin-bottom: 10px;
-    }
-    .heroNames{
-      font-family: var(--serif);
-      font-weight: 500;
-      font-size: clamp(44px, 7vw, 78px);
-      line-height: .95;
-      letter-spacing: .02em;
-      margin: 0 0 10px;
-      text-transform: uppercase;
-    }
-    .heroDateLine{
-      font-family: var(--serif);
-      font-weight: 500;
-      font-size: 20px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(18,19,21,.65);
-      margin: 0 0 14px;
-    }
-    .heroLead{
-      font-size: 16px;
-      line-height: 1.75;
-      color: rgba(18,19,21,.86);
-      margin: 0 0 18px;
-      max-width: 56ch;
-    }
+.heroCard{
+  background: rgba(250,250,250,.55);
+  border: 1px solid rgba(153,143,138,.22);
+  border-radius: 22px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.08);
+  overflow: hidden;
+}
 
-    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top: 16px;}
+.heroGrid{
+  display:grid;
+  grid-template-columns: 1.12fr .88fr;
+  gap: 16px;
+  align-items:stretch;
+  padding: 16px;
+}
+@media (max-width: 860px){
+  .heroGrid{grid-template-columns:1fr}
+}
 
-    .btn{
-      border:0;
-      padding: 12px 18px;
-      border-radius: 14px;
-      cursor:pointer;
-      font-weight: 600;
-      font-size: 16px;
-      transition: transform .06s ease, opacity .2s ease;
-      letter-spacing: .01em;
-      text-decoration:none;
-      display:inline-block;
-      user-select:none;
-    }
-    .btn:active{transform: translateY(1px)}
-    .btnPrimary{
-      background: linear-gradient(135deg, rgba(215,177,156,.95), rgba(153,143,138,.95));
-      color: #fff;
-      box-shadow: 0 12px 26px rgba(215,177,156,.25);
-    }
-    .btnGhost{
-      background: transparent;
-      border: 1px solid rgba(153,143,138,.35);
-      color: var(--text);
-    }
+.heroLeft{padding: 16px 14px 14px;}
 
-    .heroMedia{
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(153,143,138,.22);
-      background: #efe6e0;
-      min-height: 420px;
-      position: relative;
-    }
-    /* ✅ главное: фото НЕ увеличиваем, просто заполняет блок */
-    .heroMedia img{
-      width:100%;
-      height:100%;
-      display:block;
-      object-fit: cover;
-      object-position: center;
-      transform:none !important;
-    }
-    @media (max-width: 860px){
-      .heroMedia{min-height: 360px;}
-    }
+.eyebrow{
+  font-family: var(--serif);
+  font-size: 12px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(18,19,21,.55);
+  margin-bottom: 10px;
+}
+
+.heroNames{
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(44px, 7vw, 78px);
+  line-height: .95;
+  letter-spacing: .02em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.heroDateLine{
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(18,19,21,.65);
+  margin: 0 0 14px;
+}
+
+.heroLead{
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(18,19,21,.86);
+  margin: 0 0 18px;
+  max-width: 56ch;
+}
+
+.actions{display:flex; flex-wrap:wrap; gap:10px; margin-top: 16px;}
+
+.btn{
+  border:0;
+  padding: 12px 18px;
+  border-radius: 14px;
+  cursor:pointer;
+  font-weight: 600;
+  font-size: 16px;
+  transition: transform .06s ease, opacity .2s ease;
+  letter-spacing: .01em;
+  text-decoration:none;
+  display:inline-block;
+  user-select:none;
+}
+.btn:active{transform: translateY(1px)}
+.btnPrimary{
+  background: linear-gradient(135deg, rgba(215,177,156,.95), rgba(153,143,138,.95));
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(215,177,156,.25);
+}
+.btnGhost{
+  background: transparent;
+  border: 1px solid rgba(153,143,138,.35);
+  color: var(--text);
+}
+
+.heroMedia{
+  border-radius: 18px;
+  overflow:hidden;
+  border: 1px solid rgba(153,143,138,.22);
+  background: #efe6e0;
+  min-height: 420px;
+  position: relative;
+}
+
+/* ✅ главное: фото НЕ увеличиваем, заполняет блок */
+.heroMedia img{
+  width:100%;
+  height:100%;
+  display:block;
+
+  object-fit: cover;          /* заполняет блок */
+  object-position: 50% 35%;   /* 🔥 подстройка “как было”, можно менять */
+
+  transform:none !important;
+  transition:none !important; /* чтобы точно не было hover/zoom */
+}
+
+@media (max-width: 860px){
+  .heroMedia{min-height: 360px;}
+}
 
     /* ===== Paper sections ===== */
     .paper{background: var(--c2); padding: 10px 0 10px;}
@@ -487,37 +498,25 @@
 <body>
 
   <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="wrap">
-      <div class="heroCard reveal">
-        <div class="heroGrid">
+<section class="hero" id="top" aria-label="Главное фото">
+  <div class="heroInner">
+    <h1 class="heroNames">АННА &amp; ЛЕОНИД</h1>
 
-          <div class="heroLeft">
-            <div class="eyebrow">Свадебное приглашение</div>
-
-            <h1 class="heroNames">АННА &amp; ЛЕОНИД</h1>
-            <p class="heroDateLine">17 ИЮНЯ 2026</p>
-
-            <p class="heroLead">
-              Дорогие наши родные и друзья!<br>
-              Мы будем счастливы разделить с вами самый важный и тёплый день нашей жизни.
-            </p>
-
-            <div class="actions">
-              <a class="btn btnPrimary" href="#rsvp">Подтвердить присутствие</a>
-              <a class="btn btnGhost" href="#places">Где и когда</a>
-              <a class="btn btnGhost" href="#program">Программа дня</a>
-            </div>
-          </div>
-
-          <div class="heroMedia" aria-label="Главное фото">
-            <img src="hero.jpg" alt="" loading="eager" decoding="async">
-          </div>
-
-        </div>
-      </div>
+    <div class="heroDate" aria-label="Дата">
+      <span>17</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span>июня</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span>2026</span>
     </div>
-  </section>
+
+    <div class="heroActions">
+      <a class="heroBtn heroBtnPrimary" href="#rsvp">Подтвердить присутствие</a>
+      <a class="heroBtn" href="#places">Где и когда</a>
+      <a class="heroBtn" href="#program">Программа дня</a>
+    </div>
+  </div>
+</section>
 
   <div class="paper">
 
@@ -971,3 +970,4 @@
 
 </body>
 </html>
+
