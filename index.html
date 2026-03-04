@@ -37,36 +37,55 @@
 
     *{box-sizing:border-box}
     html,body{height:100%}
+    html{scroll-behavior:smooth;}
     body{
       margin:0;
       color:var(--text);
       font-family: var(--sans);
       background: linear-gradient(180deg, var(--c2), var(--c1));
-      scroll-behavior:smooth;
     }
 
     img{max-width:100%; height:auto;}
     .wrap{max-width: var(--maxw); margin:0 auto; padding: 0 var(--pad);}
 
-    /* ===== HERO ===== */
+    /* ===== A11y / motion ===== */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important;}
+      html{scroll-behavior:auto;}
+    }
+
+    /* ===== HERO (parallax) =====
+       Мы используем псевдо-слой ::before и двигаем его через JS. */
     .hero{
       min-height: 92vh;
       display:flex;
       align-items:flex-end;
       position:relative;
-      background:
+      overflow:hidden;
+      background:#000; /* подложка */
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-12vh -8vw; /* запас, чтобы при параллаксе не появлялись пустые края */
+      background-image:
         linear-gradient(rgba(0,0,0,var(--hero-dark)), rgba(0,0,0,var(--hero-dark))),
         var(--hero-image);
       background-size: cover;
       background-position: center;
+      transform: translate3d(0,0,0) scale(1.05);
+      will-change: transform;
+      z-index:0;
     }
     .hero::after{
       content:"";
       position:absolute; left:0; right:0; bottom:0;
       height: 120px;
       background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(244,234,229,.95));
+      z-index:1;
+      pointer-events:none;
     }
-    .heroInner{width:100%; position:relative; z-index:1; padding: 28px 0 26px;}
+    .heroInner{width:100%; position:relative; z-index:2; padding: 28px 0 26px;}
     .heroTitle{text-align:center; color:#fff; padding: 10px 0 18px;}
 
     .names{
@@ -78,6 +97,7 @@
       margin: 0 0 10px;
       text-transform: uppercase;
       white-space: nowrap;
+      text-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
     @media (max-width: 520px){
       .names{font-size: 44px; letter-spacing:.015em;}
@@ -94,6 +114,7 @@
       text-transform: uppercase;
       margin: 0;
       opacity: .92;
+      text-shadow: 0 10px 30px rgba(0,0,0,.22);
     }
 
     .heroActions{
@@ -114,7 +135,11 @@
       font-size: 14px;
       cursor:pointer;
       backdrop-filter: blur(6px);
+      transition: transform .18s ease, background .25s ease, border-color .25s ease;
+      will-change: transform;
     }
+    .btn:hover{transform: translateY(-1px);}
+    .btn:active{transform: translateY(0px) scale(.99);}
     .btnPrimary{
       border-color: transparent;
       background: linear-gradient(135deg, rgba(215,177,156,.92), rgba(153,143,138,.92));
@@ -146,32 +171,55 @@
     .text{font-size: 16px; line-height: 1.75; color: rgba(18,19,21,.86); margin: 0;}
     .muted{color: rgba(18,19,21,.60)}
 
-    /* ===== Love story ===== */
-    .storyGrid{display:grid; grid-template-columns:1fr; gap: 18px; align-items:start;}
-    .storyPhotos{
+    /* ===== Reveal animation (on scroll) ===== */
+    .reveal{
+      opacity:0;
+      transform: translateY(22px);
+      transition: opacity .9s ease, transform .9s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.in{
+      opacity:1;
+      transform: translateY(0);
+    }
+    .revealDelay1{transition-delay:.12s;}
+    .revealDelay2{transition-delay:.22s;}
+    .revealDelay3{transition-delay:.32s;}
+
+    /* ===== Love story (на всю ширину, без рамок) ===== */
+    .storyGrid{
       display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      align-items:stretch;
+      grid-template-columns:1fr;
+      gap:22px;
+      align-items:start;
     }
-    @media (max-width: 720px){
-      .storyPhotos{grid-template-columns:1fr; gap:10px;}
+
+    /* full-bleed внутри wrap (выходит за паддинги) */
+    .storyPhotos.full{
+      width: calc(100% + (var(--pad) * 2));
+      margin-left: calc(var(--pad) * -1);
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
-    .storyPhoto{
-      border-radius: 18px;
-      overflow:hidden;
-      background: #e9dfd9;
-      border: 1px solid rgba(153,143,138,.22);
-      aspect-ratio: 4 / 3;
+    @media (min-width:720px){
+      .storyPhotos.full{
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
     }
-    /* ✅ ВАЖНО: чтобы contain работал с aspect-ratio */
-    .storyPhoto img{
+
+    .storyWide{
       width:100%;
-      height:100%;
-      object-fit: contain;      /* целиком */
       display:block;
-      background:#f4eae5;
+      border-radius: 18px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.08);
+      transform: scale(1);
+      transition: transform .7s cubic-bezier(.2,.8,.2,1);
+      will-change: transform;
+      /* важно: без фиксированного аспекта, фото "как есть" */
     }
+    .storyWide:hover{transform: scale(1.02);}
 
     /* ===== “Это мы!” rail ===== */
     .rail{
@@ -198,8 +246,6 @@
     }
     @media (min-width: 860px){ .ph{flex-basis: 42%;} }
 
-    /* Если хочешь ВСЕГДА целиком — поставь contain.
-       Сейчас стоит cover (как красивее обычно), но может слегка резать. */
     .ph img{
       width:100%;
       height:100%;
@@ -288,7 +334,10 @@
       text-decoration:none;
       font-family: var(--sans);
       font-size:14px;
+      transition: transform .18s ease;
     }
+    .btnMap:hover{transform: translateY(-1px);}
+    .btnMap:active{transform: translateY(0) scale(.99);}
 
     /* ===== Program ===== */
     .programTitle{
@@ -434,6 +483,7 @@
     /* ===== Telegram/mobile optimizations ===== */
     @media (max-width: 720px){
       .btn{backdrop-filter:none;}
+      .hero::before{inset:-14vh -12vw;} /* чуть больше запас */
     }
   </style>
 </head>
@@ -445,10 +495,10 @@
     <div class="heroInner">
       <div class="wrap">
         <div class="heroTitle">
-          <h1 class="names">АННА &amp; ЛЕОНИД</h1>
-          <p class="heroDate">17 ИЮНЯ 2026</p>
+          <h1 class="names reveal">АННА &amp; ЛЕОНИД</h1>
+          <p class="heroDate reveal revealDelay1">17 ИЮНЯ 2026</p>
 
-          <div class="heroActions">
+          <div class="heroActions reveal revealDelay2">
             <a class="btn btnPrimary" href="#rsvp">Подтвердить присутствие</a>
             <a class="btn" href="#places">Где и когда</a>
             <a class="btn" href="#program">Программа дня</a>
@@ -463,8 +513,8 @@
     <!-- Intro -->
     <section class="section" id="intro">
       <div class="wrap center">
-        <h2>ДОРОГИЕ ГОСТИ</h2>
-        <p class="text">
+        <h2 class="reveal">ДОРОГИЕ ГОСТИ</h2>
+        <p class="text reveal revealDelay1">
           Вы получили это сообщение, а значит, мы спешим поделиться с вами радостной новостью — у нас скоро свадьба!<br><br>
           Мы приглашаем вас разделить с нами радость этого особенного события и стать частью нашей семейной истории.<br><br>
           Ваше присутствие сделает наш день еще более значимым и незабываемым.
@@ -478,21 +528,22 @@
     <section class="section" id="story">
       <div class="wrap">
         <div class="center">
-          <h2>ИСТОРИЯ ЛЮБВИ</h2>
+          <h2 class="reveal">ИСТОРИЯ ЛЮБВИ</h2>
         </div>
 
         <div class="storyGrid">
-          <p class="text">
+          <p class="text reveal revealDelay1">
             Наша история началась, когда мы встретились у общих друзей. С тех пор мы прошли вместе через множество приключений
             и счастливых моментов. Наши отношения развивались и крепли с каждым днём — и теперь мы готовы сделать следующий шаг.
           </p>
 
-          <div class="storyPhotos" aria-label="Фото истории любви">
-            <div class="storyPhoto"><img src="love1.jpg" alt="" loading="lazy" decoding="async"></div>
-            <div class="storyPhoto"><img src="love2.jpg" alt="" loading="lazy" decoding="async"></div>
+          <!-- ✅ Фото на всю ширину (вылетает за паддинги wrap) -->
+          <div class="storyPhotos full" aria-label="Фото истории любви">
+            <img class="storyWide reveal" src="love1.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low">
+            <img class="storyWide reveal revealDelay1" src="love2.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low">
           </div>
 
-          <p class="text">
+          <p class="text reveal">
             Мы будем счастливы разделить этот особенный момент с вами и надеемся, что вы станете частью нашей дальнейшей истории.
           </p>
         </div>
@@ -505,11 +556,11 @@
     <section class="section" id="photos">
       <div class="wrap">
         <div class="center">
-          <h2>А ЭТО МЫ!</h2>
-          <p class="text muted">Листайте вправо →</p>
+          <h2 class="reveal">А ЭТО МЫ!</h2>
+          <p class="text muted reveal revealDelay1">Листайте вправо →</p>
         </div>
 
-        <div class="rail" aria-label="Это мы (листание вправо)">
+        <div class="rail reveal" aria-label="Это мы (листание вправо)">
           <div class="ph"><img src="ph1.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low"></div>
           <div class="ph"><img src="ph2.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low"></div>
           <div class="ph"><img src="ph3.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low"></div>
@@ -520,10 +571,10 @@
     <!-- Date -->
     <section class="dateBlock" id="date">
       <div class="wrap">
-        <div class="dateTitle">ДАТА СВАДЬБЫ</div>
-        <div class="dateSub">ИЮНЬ 2026</div>
+        <div class="dateTitle reveal">ДАТА СВАДЬБЫ</div>
+        <div class="dateSub reveal revealDelay1">ИЮНЬ 2026</div>
 
-        <div class="cal" aria-label="Календарь">
+        <div class="cal reveal" aria-label="Календарь">
           <div class="calHead">
             <div>Пн</div><div>Вт</div><div>Ср</div><div>Чт</div><div>Пт</div><div>Сб</div><div>Вс</div>
           </div>
@@ -554,10 +605,10 @@
     <!-- Places -->
     <section class="section" id="places">
       <div class="wrap">
-        <div class="kicker">КОГДА И ГДЕ</div>
+        <div class="kicker reveal">КОГДА И ГДЕ</div>
 
         <div class="twoCol">
-          <div>
+          <div class="reveal">
             <div class="placeH">РЕГИСТРАЦИЯ</div>
             <div class="placeName">Дворец Бракосочетания №1</div>
             <p class="kv">
@@ -565,17 +616,18 @@
               <b>Адрес:</b> Санкт-Петербург, Английская набережная, 28
             </p>
 
+            <!-- ✅ Яндекс.Карты вместо Google embed -->
             <iframe class="map" loading="lazy"
-              src="https://www.google.com/maps?q=Английская%20набережная%2028%20Санкт-Петербург&output=embed"
+              src="https://yandex.ru/map-widget/v1/?text=%D0%90%D0%BD%D0%B3%D0%BB%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BD%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%2028%20%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3&z=16"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
 
             <a class="btnMap" target="_blank" rel="noopener"
-              href="https://yandex.com/maps/org/dvorets_brakosochetaniya_1/1311913400/?ll=30.293877%2C59.933961&z=17.57">
+              href="https://yandex.ru/maps/?text=%D0%90%D0%BD%D0%B3%D0%BB%D0%B8%D0%B9%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BD%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B0%D1%8F%2028%20%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3&z=16">
               Открыть в Яндекс.Картах
             </a>
           </div>
 
-          <div>
+          <div class="reveal revealDelay1">
             <div class="placeH">СВАДЕБНЫЙ ВЕЧЕР</div>
             <div class="placeName">Ресторан Repino Village</div>
             <p class="kv">
@@ -584,12 +636,13 @@
               <b>Адрес:</b> посёлок Репино, Приморское шоссе, 444А
             </p>
 
+            <!-- ✅ Яндекс.Карты вместо Google embed -->
             <iframe class="map" loading="lazy"
-              src="https://www.google.com/maps?q=Приморское%20шоссе%20444А%20Репино&output=embed"
+              src="https://yandex.ru/map-widget/v1/?text=%D0%9F%D1%80%D0%B8%D0%BC%D0%BE%D1%80%D1%81%D0%BA%D0%BE%D0%B5%20%D1%88%D0%BE%D1%81%D1%81%D0%B5%20444%D0%90%20%D0%A0%D0%B5%D0%BF%D0%B8%D0%BD%D0%BE&z=16"
               referrerpolicy="no-referrer-when-downgrade"></iframe>
 
             <a class="btnMap" target="_blank" rel="noopener"
-              href="https://yandex.com/maps/org/repino_village/100425095405/?ll=29.828029%2C60.166848&z=17.57">
+              href="https://yandex.ru/maps/?text=%D0%9F%D1%80%D0%B8%D0%BC%D0%BE%D1%80%D1%81%D0%BA%D0%BE%D0%B5%20%D1%88%D0%BE%D1%81%D1%81%D0%B5%20444%D0%90%20%D0%A0%D0%B5%D0%BF%D0%B8%D0%BD%D0%BE&z=16">
               Открыть в Яндекс.Картах
             </a>
           </div>
@@ -602,9 +655,9 @@
     <!-- Program -->
     <section class="section" id="program">
       <div class="wrap">
-        <h2 class="programTitle center">ПРОГРАММА ДНЯ</h2>
+        <h2 class="programTitle center reveal">ПРОГРАММА ДНЯ</h2>
 
-        <div class="program">
+        <div class="program reveal">
           <div class="row">
             <div class="time">15:00</div>
             <div class="what">Регистрация во Дворце Бракосочетания №1</div>
@@ -619,7 +672,7 @@
           </div>
         </div>
 
-        <div class="hint center">Чтобы добавить пункт — скопируй любую строку программы (.row) и вставь ниже.</div>
+        <div class="hint center reveal revealDelay1">Чтобы добавить пункт — скопируй любую строку программы (.row) и вставь ниже.</div>
       </div>
     </section>
 
@@ -628,8 +681,8 @@
     <!-- Dress -->
     <section class="section" id="dress">
       <div class="wrap">
-        <h2 class="center">ДРЕСС-КОД</h2>
-        <div class="dressBox">
+        <h2 class="center reveal">ДРЕСС-КОД</h2>
+        <div class="dressBox reveal revealDelay1">
           <p class="text">
             Стиль вечера — <b>торжественный праздничный</b>.<br>
             Будем рады, если вы выберете наряд в спокойной, элегантной гамме — близкой к оттенкам приглашения.
@@ -643,11 +696,11 @@
     <!-- RSVP -->
     <section class="section" id="rsvp">
       <div class="wrap">
-        <h2 class="center">ПОДТВЕРДИТЕ ПРИСУТСТВИЕ</h2>
-        <p class="text muted center" style="margin-top:6px;">Пожалуйста, заполните форму — ответы сохраняются в таблицу.</p>
+        <h2 class="center reveal">ПОДТВЕРДИТЕ ПРИСУТСТВИЕ</h2>
+        <p class="text muted center reveal revealDelay1" style="margin-top:6px;">Пожалуйста, заполните форму — ответы сохраняются в таблицу.</p>
 
         <div class="form">
-          <form id="rsvpForm">
+          <form id="rsvpForm" class="reveal">
             <div class="grid2" style="margin-top:18px;">
               <div>
                 <label class="label">Имя *</label>
@@ -739,7 +792,7 @@
     <section class="section" id="contact">
       <div class="wrap">
         <div class="contactGrid">
-          <div>
+          <div class="reveal">
             <div class="contactTitle">СВЯЗАТЬСЯ С НАМИ</div>
             <p class="text muted">
               Если будут вопросы — пишите нам в Telegram. Также можно перейти в наш канал/чат по ссылке ниже.
@@ -750,7 +803,7 @@
             </p>
           </div>
 
-          <div class="qrBox">
+          <div class="qrBox reveal revealDelay1">
             <div class="qr">
               <!-- ✅ По твоей папке: qr.jpg -->
               <img src="qr.jpg" alt="QR" loading="lazy" decoding="async" fetchpriority="low">
@@ -769,10 +822,81 @@
       </div>
     </section>
 
-    <footer>Анна & Леонид • 17.06.2026</footer>
+    <footer class="reveal">Анна & Леонид • 17.06.2026</footer>
   </div>
 
   <script>
+    // ====== Reveal on scroll (IntersectionObserver) ======
+    (function(){
+      const els = document.querySelectorAll(".reveal");
+      if (!("IntersectionObserver" in window) || els.length === 0) {
+        els.forEach(el => el.classList.add("in"));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { root: null, threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+
+      els.forEach(el => io.observe(el));
+    })();
+
+    // ====== HERO parallax (subtle) ======
+    (function(){
+      const hero = document.querySelector(".hero");
+      if (!hero) return;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce) return;
+
+      let raf = null;
+      const onScroll = () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = null;
+          const y = window.scrollY || 0;
+          const max = hero.offsetHeight || 1;
+          const p = Math.min(1, y / max);
+          const translate = Math.round(p * 22); // px
+          hero.style.setProperty("--hero-parallax", translate + "px");
+          // двигаем слой ::before через transform на самом элементе
+          // (используем CSS var)
+          hero.style.setProperty("--hero-ty", translate);
+          // применим напрямую
+          hero.style.setProperty("--hero-translate", translate + "px");
+          hero.style.setProperty("transform", "translateZ(0)");
+          hero.style.setProperty("--_dummy", "1");
+          hero.style.setProperty("--_y", translate + "px");
+          // проще: задаём transform через style на псевдо нельзя, поэтому используем background-position через scroll
+          // но мы уже делаем transform на ::before, так что сделаем через CSS переменную:
+          hero.style.setProperty("--hero-shift", translate + "px");
+          hero.style.setProperty("--hero-shift-num", translate);
+          // реально применяется ниже через inline style в CSS? нет.
+          // Поэтому вместо этого используем маленький хак: меняем background-position на hero::before нельзя.
+          // Оставляем "легкий" вариант: двигаем сам .hero (не надо).
+        });
+      };
+
+      // Вариант 2 (надёжный): двигаем ::before через CSS переменную, которую читаем в CSS.
+      // Поэтому обновим CSS переменную на <section class="hero"> и в CSS используем её.
+      // Переменная уже выставляется ниже.
+      const apply = () => {
+        const y = window.scrollY || 0;
+        const max = hero.offsetHeight || 1;
+        const p = Math.min(1, y / max);
+        const shift = Math.round(p * 28); // px
+        hero.style.setProperty("--hero-shift", shift + "px");
+      };
+
+      const onScroll2 = () => requestAnimationFrame(apply);
+
+      window.addEventListener("scroll", onScroll2, { passive: true });
+      apply();
+    })();
+
     // ====== Multi-select dropdowns (без повторного навешивания обработчиков) ======
     const multiRoots = [...document.querySelectorAll("[data-multi]")];
 
@@ -816,7 +940,8 @@
     multiRoots.forEach(initMulti);
 
     // ======= RSVP -> Google Sheets =======
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbynlfev_o52SQGAdtO_OxJW4E-MTkmfGXd46OhDwIhvDeCJZTz_JpS_uhJ_yIFcHtek/exec";
+    // ✅ ВАЖНО: вот тут меняешь ссылку на новый Apps Script, если нужно
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8nHxMHIfYCT6O6l1F7VPQfjR0Ik8y3VlfiB7oalLimrhtevrDQOftVqCMYrDQqk3o/exec";
 
     const form = document.getElementById("rsvpForm");
     const statusEl = document.getElementById("status");
@@ -870,6 +995,44 @@
         sendBtn.disabled = false;
       }
     });
+  </script>
+
+  <script>
+    // ====== HERO parallax (final - uses CSS var) ======
+    // Переприсваиваем с правильной логикой: двигаем ::before через CSS var
+    (function(){
+      const hero = document.querySelector(".hero");
+      if (!hero) return;
+
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce) return;
+
+      // Подключаем переменную в CSS:
+      // .hero::before { transform: translate3d(0,var(--hero-shift, 0px),0) scale(1.05); }
+      // — добавим это правило через style API, чтобы не ломать верстку.
+      // Но проще: добавим прямо как CSSText ниже.
+      const style = document.createElement("style");
+      style.textContent = ".hero::before{transform: translate3d(0,var(--hero-shift, 0px),0) scale(1.05);} ";
+      document.head.appendChild(style);
+
+      let raf = null;
+      const update = () => {
+        raf = null;
+        const y = window.scrollY || 0;
+        const max = hero.offsetHeight || 1;
+        const p = Math.min(1, y / max);
+        const shift = Math.round(p * 28); // px
+        hero.style.setProperty("--hero-shift", shift + "px");
+      };
+
+      const onScroll = () => {
+        if (raf) return;
+        raf = requestAnimationFrame(update);
+      };
+
+      window.addEventListener("scroll", onScroll, { passive: true });
+      update();
+    })();
   </script>
 
 </body>
