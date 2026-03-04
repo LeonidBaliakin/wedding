@@ -9,12 +9,11 @@
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link relpreconnect="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      /* Палитра */
       --c1:#FAFAFA;
       --c2:#F4EAE5;
       --c3:#D7B19C;
@@ -40,132 +39,131 @@
       font-family: var(--sans);
       background: linear-gradient(180deg, var(--c2), var(--c1));
     }
-
     img{max-width:100%; height:auto;}
     .wrap{max-width: var(--maxw); margin:0 auto; padding: 0 var(--pad);}
 
-    /* ===== A11y / motion ===== */
     @media (prefers-reduced-motion: reduce){
       *{animation:none !important; transition:none !important;}
       html{scroll-behavior:auto;}
     }
 
-/* ===== HERO (как надо: фото не увеличиваем, заполняет блок) ===== */
-.hero{
-  padding: 22px 0 10px;
-  background: linear-gradient(180deg, var(--c2), var(--c2));
-}
+    /* ===== Reveal animation (on scroll) ===== */
+    .reveal{
+      opacity:0;
+      transform: translateY(18px);
+      transition: opacity .85s ease, transform .85s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.in{opacity:1; transform: translateY(0);}
+    .revealDelay1{transition-delay:.12s;}
+    .revealDelay2{transition-delay:.22s;}
+    .revealDelay3{transition-delay:.32s;}
 
-.heroCard{
-  background: rgba(250,250,250,.55);
-  border: 1px solid rgba(153,143,138,.22);
-  border-radius: 22px;
-  box-shadow: 0 18px 40px rgba(0,0,0,.08);
-  overflow: hidden;
-}
+    /* ===== HERO (карточка + фото справа; без зума) ===== */
+    .hero{
+      padding: 22px 0 10px;
+      background: linear-gradient(180deg, var(--c2), var(--c2));
+    }
+    .heroCard{
+      background: rgba(250,250,250,.55);
+      border: 1px solid rgba(153,143,138,.22);
+      border-radius: 22px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 16px;
+      align-items:stretch;
+      padding: 16px;
+    }
+    @media (max-width: 860px){
+      .heroGrid{grid-template-columns:1fr}
+    }
 
-.heroGrid{
-  display:grid;
-  grid-template-columns: 1.12fr .88fr;
-  gap: 16px;
-  align-items:stretch;
-  padding: 16px;
-}
-@media (max-width: 860px){
-  .heroGrid{grid-template-columns:1fr}
-}
+    .heroLeft{padding: 16px 14px 14px;}
+    .eyebrow{
+      font-family: var(--serif);
+      font-size: 12px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(18,19,21,.55);
+      margin-bottom: 10px;
+    }
+    .heroNames{
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: clamp(44px, 7vw, 78px);
+      line-height: .95;
+      letter-spacing: .02em;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+    }
+    .heroDateLine{
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 20px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(18,19,21,.65);
+      margin: 0 0 14px;
+    }
+    .heroLead{
+      font-size: 16px;
+      line-height: 1.75;
+      color: rgba(18,19,21,.86);
+      margin: 0 0 18px;
+      max-width: 56ch;
+    }
 
-.heroLeft{padding: 16px 14px 14px;}
+    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top: 16px;}
 
-.eyebrow{
-  font-family: var(--serif);
-  font-size: 12px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: rgba(18,19,21,.55);
-  margin-bottom: 10px;
-}
+    .btn{
+      border:0;
+      padding: 12px 18px;
+      border-radius: 14px;
+      cursor:pointer;
+      font-weight: 600;
+      font-size: 16px;
+      transition: transform .06s ease, opacity .2s ease;
+      letter-spacing: .01em;
+      text-decoration:none;
+      display:inline-block;
+      user-select:none;
+    }
+    .btn:active{transform: translateY(1px)}
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(215,177,156,.95), rgba(153,143,138,.95));
+      color: #fff;
+      box-shadow: 0 12px 26px rgba(215,177,156,.25);
+    }
+    .btnGhost{
+      background: transparent;
+      border: 1px solid rgba(153,143,138,.35);
+      color: var(--text);
+    }
 
-.heroNames{
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: clamp(44px, 7vw, 78px);
-  line-height: .95;
-  letter-spacing: .02em;
-  margin: 0 0 10px;
-  text-transform: uppercase;
-}
-
-.heroDateLine{
-  font-family: var(--serif);
-  font-weight: 500;
-  font-size: 20px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  color: rgba(18,19,21,.65);
-  margin: 0 0 14px;
-}
-
-.heroLead{
-  font-size: 16px;
-  line-height: 1.75;
-  color: rgba(18,19,21,.86);
-  margin: 0 0 18px;
-  max-width: 56ch;
-}
-
-.actions{display:flex; flex-wrap:wrap; gap:10px; margin-top: 16px;}
-
-.btn{
-  border:0;
-  padding: 12px 18px;
-  border-radius: 14px;
-  cursor:pointer;
-  font-weight: 600;
-  font-size: 16px;
-  transition: transform .06s ease, opacity .2s ease;
-  letter-spacing: .01em;
-  text-decoration:none;
-  display:inline-block;
-  user-select:none;
-}
-.btn:active{transform: translateY(1px)}
-.btnPrimary{
-  background: linear-gradient(135deg, rgba(215,177,156,.95), rgba(153,143,138,.95));
-  color: #fff;
-  box-shadow: 0 12px 26px rgba(215,177,156,.25);
-}
-.btnGhost{
-  background: transparent;
-  border: 1px solid rgba(153,143,138,.35);
-  color: var(--text);
-}
-
-.heroMedia{
-  border-radius: 18px;
-  overflow:hidden;
-  border: 1px solid rgba(153,143,138,.22);
-  background: #efe6e0;
-  min-height: 420px;
-  position: relative;
-}
-
-/* ✅ главное: фото НЕ увеличиваем, заполняет блок */
-.heroMedia img{
-  width:100%;
-  height:100%;
-  display:block;
-
-  object-fit: cover;          /* заполняет блок */
-  object-position: 50% 35%;   /* 🔥 подстройка “как было”, можно менять */
-
-  transform:none !important;
-  transition:none !important; /* чтобы точно не было hover/zoom */
-}
-
-@media (max-width: 860px){
-  .heroMedia{min-height: 360px;}
-}
+    .heroMedia{
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(153,143,138,.22);
+      background: #efe6e0;
+      min-height: 420px;
+      position: relative;
+    }
+    .heroMedia img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit: cover;
+      object-position: 50% 35%; /* если надо — 50% 25% / 50% 55% */
+      transform:none !important;
+      transition:none !important;
+    }
+    @media (max-width: 860px){
+      .heroMedia{min-height: 360px;}
+    }
 
     /* ===== Paper sections ===== */
     .paper{background: var(--c2); padding: 10px 0 10px;}
@@ -193,22 +191,7 @@
     .text{font-size: 16px; line-height: 1.75; color: rgba(18,19,21,.86); margin: 0;}
     .muted{color: rgba(18,19,21,.60)}
 
-    /* ===== Reveal animation (on scroll) ===== */
-    .reveal{
-      opacity:0;
-      transform: translateY(22px);
-      transition: opacity .9s ease, transform .9s ease;
-      will-change: opacity, transform;
-    }
-    .reveal.in{
-      opacity:1;
-      transform: translateY(0);
-    }
-    .revealDelay1{transition-delay:.12s;}
-    .revealDelay2{transition-delay:.22s;}
-    .revealDelay3{transition-delay:.32s;}
-
-    /* ===== Love story (отступы по бокам сохраняем внутри wrap) ===== */
+    /* ===== Love story (отступы по бокам) ===== */
     .storyGrid{
       display:grid;
       grid-template-columns:1fr;
@@ -216,7 +199,7 @@
       align-items:start;
     }
     .storyPhotos{
-      width: 100%;
+      width:100%;
       display:grid;
       grid-template-columns: 1fr;
       gap: 14px;
@@ -232,7 +215,6 @@
       display:block;
       border-radius: 18px;
       box-shadow: 0 14px 34px rgba(0,0,0,.08);
-      transform:none;
     }
 
     /* ===== “Это мы!” rail ===== */
@@ -296,11 +278,14 @@
     .cal{max-width: 520px; margin: 0 auto; padding: 12px 10px 6px;}
     .calHead{
       display:grid; grid-template-columns: repeat(7, 1fr);
-      gap: 8px; font-family: var(--sans);
-      font-size: 12px; text-transform: uppercase;
-      opacity:.85; margin-bottom: 10px; text-align:center;
+      gap: 8px;
+      font-size: 12px;
+      text-transform: uppercase;
+      opacity:.85;
+      margin-bottom: 10px;
+      text-align:center;
     }
-    .calGrid{display:grid; grid-template-columns: repeat(7, 1fr); gap: 10px; text-align:center; font-family: var(--sans);}
+    .calGrid{display:grid; grid-template-columns: repeat(7, 1fr); gap: 10px; text-align:center;}
     .day{padding: 10px 0; border-radius: 12px; opacity:.9;}
     .empty{opacity:.2}
     .heart{
@@ -345,7 +330,6 @@
       background: linear-gradient(135deg, rgba(215,177,156,.95), rgba(153,143,138,.95));
       color:#fff;
       text-decoration:none;
-      font-family: var(--sans);
       font-size:14px;
       transition: transform .18s ease;
     }
@@ -371,11 +355,19 @@
     }
     @media (max-width: 520px){ .row{grid-template-columns: 92px 1fr;} }
     .time{font-family: var(--serif); font-size: 34px; letter-spacing: .02em;}
-    .what{font-family: var(--sans); font-size: 16px; color: rgba(18,19,21,.82);}
+    .what{font-size: 16px; color: rgba(18,19,21,.82);}
     .hint{font-size: 13px; color: rgba(18,19,21,.55); margin-top: 8px;}
 
-    /* ===== Boxes (dress + gifts) ===== */
-    .box{
+    /* ===== Dress code ===== */
+    .dressBox{
+      background: rgba(250,250,250,.55);
+      padding: 22px;
+      border: 1px solid rgba(153,143,138,.22);
+      border-radius: 18px;
+    }
+
+    /* ===== Gifts ===== */
+    .giftBox{
       background: rgba(250,250,250,.55);
       padding: 22px;
       border: 1px solid rgba(153,143,138,.22);
@@ -410,7 +402,7 @@
       box-shadow: 0 0 0 4px rgba(215,177,156,.18);
     }
     .formActions{display:flex; gap: 10px; flex-wrap:wrap; margin-top: 10px;}
-    .btn2{border:0; padding: 12px 16px; border-radius: 999px; cursor:pointer; font-family: var(--sans); font-size: 14px;}
+    .btn2{border:0; padding: 12px 16px; border-radius: 999px; cursor:pointer; font-size: 14px; font-family: var(--sans);}
     .send{background: linear-gradient(135deg, rgba(215,177,156,.95), rgba(153,143,138,.95)); color:#fff;}
     .clear{background: transparent; border:1px solid rgba(153,143,138,.35); color: rgba(18,19,21,.88);}
     .status{margin-top: 10px; font-size: 13px; color: rgba(18,19,21,.65);}
@@ -498,25 +490,35 @@
 <body>
 
   <!-- HERO -->
-<section class="hero" id="top" aria-label="Главное фото">
-  <div class="heroInner">
-    <h1 class="heroNames">АННА &amp; ЛЕОНИД</h1>
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div class="heroCard reveal in">
+        <div class="heroGrid">
+          <div class="heroLeft">
+            <div class="eyebrow">Свадебное приглашение</div>
 
-    <div class="heroDate" aria-label="Дата">
-      <span>17</span>
-      <span class="sep" aria-hidden="true"></span>
-      <span>июня</span>
-      <span class="sep" aria-hidden="true"></span>
-      <span>2026</span>
-    </div>
+            <h1 class="heroNames">АННА &amp; ЛЕОНИД</h1>
+            <p class="heroDateLine">17 ИЮНЯ 2026</p>
 
-    <div class="heroActions">
-      <a class="heroBtn heroBtnPrimary" href="#rsvp">Подтвердить присутствие</a>
-      <a class="heroBtn" href="#places">Где и когда</a>
-      <a class="heroBtn" href="#program">Программа дня</a>
+            <p class="heroLead">
+              Дорогие наши родные и друзья!<br>
+              Мы будем счастливы разделить с вами самый важный и тёплый день нашей жизни.
+            </p>
+
+            <div class="actions">
+              <a class="btn btnPrimary" href="#rsvp">Подтвердить присутствие</a>
+              <a class="btn btnGhost" href="#places">Где и когда</a>
+              <a class="btn btnGhost" href="#program">Программа дня</a>
+            </div>
+          </div>
+
+          <div class="heroMedia" aria-label="Главное фото">
+            <img src="hero.jpg" alt="" loading="eager" decoding="async">
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <div class="paper">
 
@@ -547,7 +549,7 @@
             и счастливых моментов. Наши отношения развивались и крепли с каждым днём — и теперь мы готовы сделать следующий шаг.
           </p>
 
-          <div class="storyPhotos reveal" aria-label="Фото истории любви">
+          <div class="storyPhotos" aria-label="Фото истории любви">
             <img class="storyWide" src="love1.jpg" alt="" loading="lazy">
             <img class="storyWide" src="love2.jpg" alt="" loading="lazy">
           </div>
@@ -570,9 +572,9 @@
         </div>
 
         <div class="rail reveal" aria-label="Это мы (листание вправо)">
-          <div class="ph"><img src="ph1.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low"></div>
-          <div class="ph"><img src="ph2.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low"></div>
-          <div class="ph"><img src="ph3.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low"></div>
+          <div class="ph"><img src="ph1.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="ph"><img src="ph2.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="ph"><img src="ph3.jpg" alt="" loading="lazy" decoding="async"></div>
         </div>
       </div>
     </section>
@@ -689,7 +691,7 @@
     <section class="section" id="dress">
       <div class="wrap">
         <h2 class="center reveal">ДРЕСС-КОД</h2>
-        <div class="box reveal revealDelay1">
+        <div class="dressBox reveal revealDelay1">
           <p class="text">
             Стиль вечера — <b>торжественный праздничный</b>.<br>
             Будем рады, если вы выберете наряд в спокойной, элегантной гамме — близкой к оттенкам приглашения.
@@ -700,16 +702,16 @@
 
     <div class="divider"></div>
 
-    <!-- Gifts (НОВЫЙ БЛОК ПОСЛЕ ДРЕСС-КОДА) -->
+    <!-- Gifts -->
     <section class="section" id="gifts">
       <div class="wrap">
         <h2 class="center reveal">ПОЖЕЛАНИЯ К ПОДАРКАМ</h2>
-        <div class="box reveal revealDelay1">
+        <div class="giftBox reveal revealDelay1">
           <p class="text">
             Мы очень ценим ваше внимание и будем рады любому подарку.<br>
-            И не важно, в какой конверт он будет упакован.<br><br>
-            Мы понимаем, что дарить цветы на свадьбу — это традиция, но мы не успеем насладиться их красотой в полной мере.<br>
-            Будем рады любой другой альтернативе (памятный сувенир, вино или в денежном эквиваленте).
+            Если вы хотите поддержать нашу мечту — будем благодарны за вклад в семейный бюджет (в конверте).<br><br>
+            И, пожалуйста, вместо цветов — можно выбрать приятную альтернативу (памятный сувенир, вино и т.п.),
+            чтобы мы могли наслаждаться этим дольше.
           </p>
         </div>
       </div>
@@ -829,7 +831,7 @@
 
           <div class="qrBox reveal revealDelay1">
             <div class="qr">
-              <img src="qr.jpg" alt="QR" loading="lazy" decoding="async" fetchpriority="low">
+              <img src="qr.jpg" alt="QR" loading="lazy" decoding="async">
             </div>
             <div>
               <div style="font-family:var(--serif); font-size:24px; text-transform:uppercase; letter-spacing:.04em;">
@@ -863,7 +865,7 @@
             io.unobserve(e.target);
           }
         });
-      }, { root: null, threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+      }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
 
       els.forEach(el => io.observe(el));
     })();
@@ -911,7 +913,6 @@
     multiRoots.forEach(initMulti);
 
     // ======= RSVP -> Google Sheets =======
-    // ✅ ВАЖНО: если “ключ забыл поменять” — меняешь ссылку тут
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8nHxMHIfYCT6O6l1F7VPQfjR0Ik8y3VlfiB7oalLimrhtevrDQOftVqCMYrDQqk3o/exec";
 
     const form = document.getElementById("rsvpForm");
@@ -970,4 +971,3 @@
 
 </body>
 </html>
-
