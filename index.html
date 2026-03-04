@@ -64,19 +64,19 @@
       overflow:hidden;
       background:#000; /* подложка */
     }
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:-12vh -8vw; /* запас, чтобы при параллаксе не появлялись пустые края */
-      background-image:
-        linear-gradient(rgba(0,0,0,var(--hero-dark)), rgba(0,0,0,var(--hero-dark))),
-        var(--hero-image);
-      background-size: cover;
-      background-position: center;
-      transform: translate3d(0,0,0) scale(1.05);
-      will-change: transform;
-      z-index:0;
-    }
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0; /* ✅ без запасов */
+  background-image:
+    linear-gradient(rgba(0,0,0,var(--hero-dark)), rgba(0,0,0,var(--hero-dark))),
+    var(--hero-image);
+  background-size: cover;          /* ✅ заполняет весь блок */
+  background-position: center;
+  transform: translate3d(0,0,0);   /* ✅ без scale */
+  will-change: transform;
+  z-index:0;
+}
     .hero::after{
       content:"";
       position:absolute; left:0; right:0; bottom:0;
@@ -186,40 +186,40 @@
     .revealDelay2{transition-delay:.22s;}
     .revealDelay3{transition-delay:.32s;}
 
-    /* ===== Love story (на всю ширину, без рамок) ===== */
-    .storyGrid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:22px;
-      align-items:start;
-    }
+/* ===== Love story (с отступами по бокам) ===== */
+.storyGrid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:22px;
+  align-items:start;
+}
 
-    /* full-bleed внутри wrap (выходит за паддинги) */
-    .storyPhotos.full{
-      width: calc(100% + (var(--pad) * 2));
-      margin-left: calc(var(--pad) * -1);
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-    }
-    @media (min-width:720px){
-      .storyPhotos.full{
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
-    }
+/* ✅ теперь НЕ full-bleed, а внутри wrap */
+.storyPhotos{
+  width: 100%;
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
 
-    .storyWide{
-      width:100%;
-      display:block;
-      border-radius: 18px;
-      box-shadow: 0 14px 34px rgba(0,0,0,.08);
-      transform: scale(1);
-      transition: transform .7s cubic-bezier(.2,.8,.2,1);
-      will-change: transform;
-      /* важно: без фиксированного аспекта, фото "как есть" */
-    }
-    .storyWide:hover{transform: scale(1.02);}
+@media (min-width:720px){
+  .storyPhotos{
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
+
+.storyWide{
+  width:100%;
+  display:block;
+  border-radius: 18px;
+  box-shadow: 0 14px 34px rgba(0,0,0,.08);
+  transform: scale(1);
+  transition: transform .7s cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
+}
+
+.storyWide:hover{transform: scale(1.02);}
 
     /* ===== “Это мы!” rail ===== */
     .rail{
@@ -538,10 +538,10 @@
           </p>
 
           <!-- ✅ Фото на всю ширину (вылетает за паддинги wrap) -->
-          <div class="storyPhotos full" aria-label="Фото истории любви">
-            <img class="storyWide reveal" src="love1.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low">
-            <img class="storyWide reveal revealDelay1" src="love2.jpg" alt="" loading="lazy" decoding="async" fetchpriority="low">
-          </div>
+<div class="storyPhotos" aria-label="Фото истории любви">
+  <img class="storyWide" src="love1.jpg" alt="" loading="lazy">
+  <img class="storyWide" src="love2.jpg" alt="" loading="lazy">
+</div>
 
           <p class="text reveal">
             Мы будем счастливы разделить этот особенный момент с вами и надеемся, что вы станете частью нашей дальнейшей истории.
@@ -1037,3 +1037,4 @@
 
 </body>
 </html>
+
