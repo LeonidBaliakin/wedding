@@ -292,7 +292,15 @@
       box-shadow: 0 14px 34px rgba(0,0,0,.08);
       transform:none;
     }
-
+    .circlePhoto{
+  width:100%;
+  max-width:420px;
+  aspect-ratio:1/1;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  margin:20px auto;
+}
     /* ===== “Это мы!” rail ===== */
     .rail{
       display:flex;
@@ -618,7 +626,7 @@
           Если вы читаете эти строки, значит вы — именно такой человек. Спасибо, что вы есть в нашей жизни. Мы очень ждём вас рядом в день нашей свадьбы. 🤍
         </p>
         <div class="storyPhotos reveal revealDelay2">
-            <img class="storyWide" src="intro1.jpg" alt="" loading="lazy">
+            <img class="circlePhoto" src="intro1.jpg" alt="" loading="lazy">
         </div>
       </div>
     </section>
@@ -1097,6 +1105,7 @@
 
 </body>
 </html>
+
 
 
 
