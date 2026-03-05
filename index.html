@@ -8,12 +8,11 @@
   <meta name="theme-color" content="#F4EAE5" />
 
 <!-- Fonts -->
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <!-- ✅ Script font for "Свадьба" -->
-  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
-
   <style>
     :root{
       /* Палитра */
@@ -35,7 +34,7 @@
 
       --serif: "Cormorant Garamond", serif;
       --sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      --script: "Allura", cursive;
+      --script: "Great Vibes", cursive;
     }
 
     *{box-sizing:border-box}
@@ -183,6 +182,20 @@
       text-transform: uppercase;
       text-shadow: 0 14px 40px rgba(0,0,0,.35);
     }
+    .heroScript{
+  font-family: var(--script);
+  font-size: clamp(64px, 14vw, 130px); /* больше чем имена */
+  color:#fff;
+
+  line-height: .9;
+  margin-bottom: 6px;
+
+  transform: rotate(-6deg);
+
+  text-shadow:
+    0 14px 40px rgba(0,0,0,.55),
+    0 0 24px rgba(0,0,0,.25);
+}
 
     /* ✅ привели к одному имени (у тебя в HTML heroDateLine) */
     .heroDateLine{
@@ -554,9 +567,9 @@
   <div class="heroInner">
     <div class="wrap">
       <div class="heroStack">
-        <div class="heroScript">Свадьба</div>
-        <h1 class="heroNames">АННА &amp; ЛЕОНИД</h1>
-        <p class="heroDate">17 ИЮНЯ 2026</p>
+<div class="heroScript">Свадьба</div>
+<h1 class="heroNames">АННА &amp; ЛЕОНИД</h1>
+<p class="heroDate">17 ИЮНЯ 2026</p>
 
         <div class="heroActions">
           <a class="btn btnPrimary" href="#rsvp">Подтвердить присутствие</a>
@@ -1019,4 +1032,5 @@
 
 </body>
 </html>
+
 
