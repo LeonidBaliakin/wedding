@@ -268,12 +268,11 @@
     .muted{color: rgba(18,19,21,.60)}
 
     /* ===== Love story ===== */
-    .storyGrid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:22px;
-      align-items:start;
-    }
+.storyGrid .text{
+  max-width: 720px;
+  margin-left:auto;
+  margin-right:auto;
+}
     .storyPhotos{
       width:100%;
       display:grid;
@@ -428,6 +427,12 @@
       border-bottom: 1px solid rgba(153,143,138,.18);
       align-items:center;
     }
+    .program .row b{
+  font-family: var(--serif);
+  font-size: 22px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
     @media (max-width: 520px){ .row{grid-template-columns: 92px 1fr;} }
     .time{font-family: var(--serif); font-size: 34px; letter-spacing: .02em;}
     .what{font-family: var(--sans); font-size: 16px; color: rgba(18,19,21,.82);}
@@ -605,7 +610,7 @@
         </div>
 
         <div class="storyGrid">
-          <p class="text reveal revealDelay1">
+          <p class="text center reveal revealDelay1">
             Они встретились в 2021 году в компании «Везу.ру» — в обычные рабочие дни, где всё кажется временным: задачи, планы, люди вокруг. Она проработала там всего два месяца, он — два года. Но этого оказалось достаточно, чтобы между ними началось то, что уже нельзя было назвать случайностью.<br>
             Их любовь не шла по прямой. Они расходились и возвращались снова — будто учились быть рядом, учились слышать друг друга, учились не убегать от важного.<br>
             Прошёл год — и она уже настояла на серьёзных намерениях. Не из упрямства, а из любви, которая выросла из “может быть” в “точно”. Потому что некоторые люди приходят в жизнь не для эпизода, а для будущего.
@@ -616,7 +621,7 @@
             <img class="storyWide" src="love2.jpg" alt="" loading="lazy">
           </div>
 
-          <p class="text reveal">
+          <p class="text center reveal">
             В 2025 году Леонид сделал ей предложение. Так история, в которой были паузы и сомнения, стала историей выбора — быть вместе, несмотря ни на что, и любить так, чтобы это было навсегда. 🤍
           </p>
         </div>
@@ -630,7 +635,7 @@
       <div class="wrap">
         <div class="center">
           <h2 class="reveal">А ЭТО МЫ!</h2>
-          <p class="text muted reveal revealDelay1">Листайте вправо →</p>
+          <p class="text muted reveal revealDelay1">Листайте вправо, вдруг забыли, как мы выглядим →</p>
         </div>
 
         <div class="rail reveal" aria-label="Это мы (листание вправо)">
@@ -723,31 +728,75 @@
 
     <div class="divider"></div>
 
-    <!-- Program -->
-    <section class="section" id="program">
-      <div class="wrap">
-        <h2 class="programTitle center reveal">ПРОГРАММА ДНЯ</h2>
+<!-- Program -->
+<section class="section" id="program">
+  <div class="wrap">
+    <h2 class="programTitle center reveal">ПРОГРАММА ДНЯ</h2>
 
-        <div class="program reveal">
-          <div class="row">
-            <div class="time">15:00</div>
-            <div class="what">Регистрация во Дворце Бракосочетания №1</div>
-          </div>
-          <div class="row">
-            <div class="time">16:00</div>
-            <div class="what">Сбор гостей в Repino Village</div>
-          </div>
-          <div class="row">
-            <div class="time">16:30</div>
-            <div class="what">Начало празднования</div>
-          </div>
-        </div>
+    <div class="program reveal">
 
-        <div class="hint center reveal revealDelay1">Чтобы добавить пункт — скопируй любую строку программы (.row) и вставь ниже.</div>
+      <!-- Часть 1 -->
+      <div class="row">
+        <div class="time">—</div>
+        <div class="what"><b>Часть 1 — Регистрация</b></div>
       </div>
-    </section>
 
-    <div class="divider"></div>
+      <div class="row">
+        <div class="time">14:45</div>
+        <div class="what">Сбор гостей</div>
+      </div>
+
+      <div class="row">
+        <div class="time">15:00</div>
+        <div class="what">Регистрация брака</div>
+      </div>
+
+      <div class="row">
+        <div class="time">15:15</div>
+        <div class="what">Общее памятное фото</div>
+      </div>
+
+      <div class="row">
+        <div class="time">15:20</div>
+        <div class="what">Трансфер до ресторана</div>
+      </div>
+
+      <!-- Часть 2 -->
+      <div class="row">
+        <div class="time">—</div>
+        <div class="what"><b>Часть 2 — Праздник в ресторане</b></div>
+      </div>
+
+      <div class="row">
+        <div class="time">16:00</div>
+        <div class="what">Сбор гостей</div>
+      </div>
+
+      <div class="row">
+        <div class="time">16:30</div>
+        <div class="what">Начало мероприятия</div>
+      </div>
+
+      <div class="row">
+        <div class="time">21:00</div>
+        <div class="what">Свадебный торт</div>
+      </div>
+
+      <div class="row">
+        <div class="time">22:45</div>
+        <div class="what">Окончание мероприятия</div>
+      </div>
+
+      <div class="row">
+        <div class="time">23:00</div>
+        <div class="what">Трансфер до ст. м. «Беговая»</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
 
     <!-- Dress -->
     <section class="section" id="dress">
@@ -755,8 +804,8 @@
         <h2 class="center reveal">ДРЕСС-КОД</h2>
         <div class="box reveal revealDelay1">
           <p class="text">
-            Стиль вечера — <b>торжественный праздничный</b>.<br>
-            Будем рады, если вы выберете наряд в спокойной, элегантной гамме — близкой к оттенкам приглашения.
+            Если честно — дресс-код не обязателен. Главное, чтобы вам было удобно и вы пришли в хорошем настроении 🤍</b>.<br>
+            Но если хочется поддержать стиль вечера — выбирайте спокойные, элегантные оттенки, близкие к гамме приглашения. А белое оставим невесте — ей и так надо как-то выделиться 😉
           </p>
         </div>
       </div>
@@ -770,9 +819,9 @@
         <h2 class="center reveal">ПОЖЕЛАНИЯ К ПОДАРКАМ</h2>
         <div class="box reveal revealDelay1">
           <p class="text">
-            Мы очень ценим ваше внимание и будем рады любому подарку.<br>
-            Если вы хотите нас порадовать особенно практично — будем благодарны вкладу в наш семейный бюджет (в любом конверте).<br><br>
-            А ещё мы будем рады, если вместо цветов вы выберете приятную альтернативу — памятный сувенир или бутылочку вина.
+            Самый ценный подарок для нас — ваше присутствие и настроение 🤍<br>
+            А если вы захотите нас поздравить, будем очень благодарны за вклад в наш семейный бюджет.<br><br>
+            И, пожалуйста, без цветов — мы можем не успеть подарить им столько любви, сколько они заслуживают 😊
           </p>
         </div>
       </div>
@@ -784,7 +833,7 @@
     <section class="section" id="rsvp">
       <div class="wrap">
         <h2 class="center reveal">ПОДТВЕРДИТЕ ПРИСУТСТВИЕ</h2>
-        <p class="text muted center reveal revealDelay1" style="margin-top:6px;">Пожалуйста, заполните форму — ответы сохраняются в таблицу.</p>
+        <p class="text muted center reveal revealDelay1" style="margin-top:6px;">Пожалуйста, заполните форму ниже — и ответьте максимально честно 😊 Это поможет нам всё продумать для вашего комфорта</p>
 
         <div class="form">
           <form id="rsvpForm" class="reveal">
@@ -798,8 +847,10 @@
                 <label class="label">Будете ли вы присутствовать? *</label>
                 <select name="attend" required>
                   <option value="" disabled selected>Выберите</option>
-                  <option value="Да, буду(ем)">Да, буду(ем)</option>
-                  <option value="К сожалению, не смогу(ем)">К сожалению, не смогу(ем)</option>
+                  <option value="Да, только на части I (Регистрация)">Да, только на части I (Регистрация)</option>
+                  <option value="Да, только на части II (Ресторан)">Да, только на части II (Ресторан)</option>
+                  <option value="Да, весь день">Да, весь день</option>
+                  <option value="❌ К сожалению, не смогу">❌ К сожалению, не смогу</option>
                 </select>
               </div>
             </div>
@@ -832,30 +883,26 @@
                 <div class="multiWrap" data-multi="alcohol">
                   <button class="multiBtn" type="button">Выберите варианты</button>
                   <div class="multiPanel" role="listbox" aria-label="Алкоголь">
-                    <label class="opt"><input type="checkbox" value="Вино"> Вино</label>
-                    <label class="opt"><input type="checkbox" value="Шампанское"> Шампанское</label>
-                    <label class="opt"><input type="checkbox" value="Пиво"> Пиво</label>
-                    <label class="opt"><input type="checkbox" value="Виски"> Виски</label>
-                    <label class="opt"><input type="checkbox" value="Водка"> Водка</label>
-                    <label class="opt"><input type="checkbox" value="Коктейли"> Коктейли</label>
-                    <label class="opt"><input type="checkbox" value="Не пью алкоголь"> Не пью алкоголь</label>
+                    <label class="opt"><input type="checkbox" value="🍷Вино"> 🍷Вино</label>
+                    <label class="opt"><input type="checkbox" value="🥂 Игристое"> 🥂 Игристое</label>
+                    <label class="opt"><input type="checkbox" value="🍺Пиво"> 🍺Пиво</label>
+                    <label class="opt"><input type="checkbox" value="🥃 Крепкий алкоголь"> 🥃 Крепкий алкоголь</label>
+                    <label class="opt"><input type="checkbox" value="🍾Водка"> 🍾Водка</label>
+                    <label class="opt"><input type="checkbox" value="🍸Коктейли"> 🍸Коктейли</label>
+                    <label class="opt"><input type="checkbox" value="🚫 Алкоголь не пью (безалкогольные напитки)"> 🚫 Алкоголь не пью (безалкогольные напитки)</label>
                   </div>
                   <div class="pillRow" data-pills></div>
                 </div>
               </div>
 
               <div>
-                <label class="label">Безалкогольные напитки (можно выбрать несколько)</label>
+                <label class="label">Нужен трансфер после праздника до метро?</label>
                 <div class="multiWrap" data-multi="nonalc">
                   <button class="multiBtn" type="button">Выберите варианты</button>
                   <div class="multiPanel" role="listbox" aria-label="Напитки">
-                    <label class="opt"><input type="checkbox" value="Вода (без газа)"> Вода (без газа)</label>
-                    <label class="opt"><input type="checkbox" value="Вода (с газом)"> Вода (с газом)</label>
-                    <label class="opt"><input type="checkbox" value="Сок"> Сок</label>
-                    <label class="opt"><input type="checkbox" value="Лимонад"> Лимонад</label>
-                    <label class="opt"><input type="checkbox" value="Кола/без сахара"> Кола/без сахара</label>
-                    <label class="opt"><input type="checkbox" value="Чай"> Чай</label>
-                    <label class="opt"><input type="checkbox" value="Кофе"> Кофе</label>
+                    <label class="opt"><input type="checkbox" value="Да"> Да</label>
+                    <label class="opt"><input type="checkbox" value="Нет"> ВНет</label>
+
                   </div>
                   <div class="pillRow" data-pills></div>
                 </div>
@@ -880,9 +927,9 @@
       <div class="wrap">
         <div class="contactGrid">
           <div class="reveal">
-            <div class="contactTitle">СВЯЗАТЬСЯ С НАМИ</div>
+            <div class="contactTitle">Информация</div>
             <p class="text muted">
-              Если будут вопросы — пишите нам в Telegram. Также можно перейти в наш канал/чат по ссылке ниже.
+              Чтобы не пропустить важные детали в день мероприятия (адреса, тайминг, трансфер и фото), присоединяйтесь к нашему Telegram-каналу 🤍 Там будет всё самое нужное — коротко, по делу и вовремя.
             </p>
 
             <p class="text" style="margin-top:12px;">
@@ -1032,5 +1079,6 @@
 
 </body>
 </html>
+
 
 
