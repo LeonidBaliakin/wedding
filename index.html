@@ -433,6 +433,25 @@
   letter-spacing: .04em;
   text-transform: uppercase;
 }
+    .programPart{
+  font-family: var(--serif);
+  font-size: 22px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align:center;
+  padding: 26px 0 12px;
+  border-bottom:1px solid rgba(153,143,138,.25);
+  color: rgba(18,19,21,.75);
+}
+    .placePart{
+  font-family: var(--serif);
+  text-align:center;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:18px;
+  margin: 18px 0 26px;
+  color: rgba(18,19,21,.65);
+}
     @media (max-width: 520px){ .row{grid-template-columns: 92px 1fr;} }
     .time{font-family: var(--serif); font-size: 34px; letter-spacing: .02em;}
     .what{font-family: var(--sans); font-size: 16px; color: rgba(18,19,21,.82);}
@@ -685,7 +704,8 @@
       <div class="wrap">
         <div class="kicker reveal">КОГДА И ГДЕ</div>
 
-        <div class="twoCol">
+  <div class="placePart">Часть I — Регистрация</div>
+  <div class="twoCol">
           <div class="reveal">
             <div class="placeH">РЕГИСТРАЦИЯ</div>
             <div class="placeName">Дворец Бракосочетания №1</div>
@@ -705,6 +725,7 @@
           </div>
 
           <div class="reveal revealDelay1">
+            <div class="placePart">Часть II — Праздник</div>
             <div class="placeH">СВАДЕБНЫЙ ВЕЧЕР</div>
             <div class="placeName">Ресторан Repino Village</div>
             <p class="kv">
@@ -733,66 +754,58 @@
   <div class="wrap">
     <h2 class="programTitle center reveal">ПРОГРАММА ДНЯ</h2>
 
-    <div class="program reveal">
+<div class="program reveal">
 
-      <!-- Часть 1 -->
-      <div class="row">
-        <div class="time">—</div>
-        <div class="what"><b>Часть 1 — Регистрация</b></div>
-      </div>
+  <div class="programPart">Часть I — Регистрация</div>
 
-      <div class="row">
-        <div class="time">14:45</div>
-        <div class="what">Сбор гостей</div>
-      </div>
+  <div class="row">
+    <div class="time">14:45</div>
+    <div class="what">Сбор гостей</div>
+  </div>
 
-      <div class="row">
-        <div class="time">15:00</div>
-        <div class="what">Регистрация брака</div>
-      </div>
+  <div class="row">
+    <div class="time">15:00</div>
+    <div class="what">Регистрация брака</div>
+  </div>
 
-      <div class="row">
-        <div class="time">15:15</div>
-        <div class="what">Общее памятное фото</div>
-      </div>
+  <div class="row">
+    <div class="time">15:15</div>
+    <div class="what">Общее памятное фото</div>
+  </div>
 
-      <div class="row">
-        <div class="time">15:20</div>
-        <div class="what">Трансфер до ресторана</div>
-      </div>
+  <div class="row">
+    <div class="time">15:20</div>
+    <div class="what">Трансфер до ресторана</div>
+  </div>
 
-      <!-- Часть 2 -->
-      <div class="row">
-        <div class="time">—</div>
-        <div class="what"><b>Часть 2 — Праздник в ресторане</b></div>
-      </div>
+  <div class="programPart">Часть II — Праздник в ресторане</div>
 
-      <div class="row">
-        <div class="time">16:00</div>
-        <div class="what">Сбор гостей</div>
-      </div>
+  <div class="row">
+    <div class="time">16:00</div>
+    <div class="what">Сбор гостей</div>
+  </div>
 
-      <div class="row">
-        <div class="time">16:30</div>
-        <div class="what">Начало мероприятия</div>
-      </div>
+  <div class="row">
+    <div class="time">16:30</div>
+    <div class="what">Начало мероприятия</div>
+  </div>
 
-      <div class="row">
-        <div class="time">21:00</div>
-        <div class="what">Свадебный торт</div>
-      </div>
+  <div class="row">
+    <div class="time">21:00</div>
+    <div class="what">Свадебный торт</div>
+  </div>
 
-      <div class="row">
-        <div class="time">22:45</div>
-        <div class="what">Окончание мероприятия</div>
-      </div>
+  <div class="row">
+    <div class="time">22:45</div>
+    <div class="what">Окончание мероприятия</div>
+  </div>
 
-      <div class="row">
-        <div class="time">23:00</div>
-        <div class="what">Трансфер до ст. м. «Беговая»</div>
-      </div>
+  <div class="row">
+    <div class="time">23:00</div>
+    <div class="what">Трансфер до ст. м. «Беговая»</div>
+  </div>
 
-    </div>
+</div>
   </div>
 </section>
 
@@ -929,7 +942,8 @@
           <div class="reveal">
             <div class="contactTitle">Информация</div>
             <p class="text muted">
-              Чтобы не пропустить важные детали в день мероприятия (адреса, тайминг, трансфер и фото), присоединяйтесь к нашему Telegram-каналу 🤍 Там будет всё самое нужное — коротко, по делу и вовремя.
+              Чтобы не пропустить важные детали в день мероприятия (адреса, тайминг, трансфер и фото), присоединяйтесь к нашему Telegram-каналу 🤍<br>
+              Там будет всё самое нужное — коротко, по делу и вовремя.
             </p>
 
             <p class="text" style="margin-top:12px;">
@@ -1079,6 +1093,7 @@
 
 </body>
 </html>
+
 
 
 
