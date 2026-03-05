@@ -7,10 +7,10 @@
   <meta name="description" content="Свадебное приглашение Анны и Леонида — 17 июня 2026" />
   <meta name="theme-color" content="#F4EAE5" />
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <!-- ✅ Script font for "Свадьба" -->
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
 
@@ -72,62 +72,106 @@
     .revealDelay2{transition-delay:.22s;}
     .revealDelay3{transition-delay:.32s;}
 
-    /* ===== HERO: full-screen фото + текст поверх ===== */
-    .hero{
-      min-height: 100vh;
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      background:#000;
-    }
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background-image:
-        linear-gradient(rgba(0,0,0,var(--hero-dark)), rgba(0,0,0,var(--hero-dark))),
-        var(--hero-image);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      transform:none; /* ✅ НЕ увеличиваем */
-      z-index:0;
-    }
-    .hero::after{
-      content:"";
-      position:absolute; left:0; right:0; bottom:0;
-      height: 140px;
-      background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(244,234,229,.95));
-      z-index:1;
-      pointer-events:none;
-    }
+/* ===== HERO: full-screen фото + текст поверх ===== */
+.hero{
+  min-height: 100vh;
+  position:relative;
+  overflow:hidden;
+  background:#000;
+}
 
-    .heroInner{
-      position:relative;
-      z-index:2;
-      width:100%;
-      padding: 26px 0 38px;
-      text-align:center;
-      color:#fff;
-    }
+/* фон */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(0,0,0,var(--hero-dark)), rgba(0,0,0,var(--hero-dark))),
+    var(--hero-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform:none; /* НЕ увеличиваем */
+  z-index:0;
+}
+
+/* “туман” снизу */
+.hero::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:0;
+  height: 180px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.55));
+  z-index:1;
+  pointer-events:none;
+}
+
+/* ✅ главное: опускаем блок вниз */
+.heroInner{
+  position:relative;
+  z-index:2;
+  min-height: 100vh;
+  display:flex;
+  align-items:flex-end;          /* вниз */
+  justify-content:center;        /* по центру по горизонтали */
+  padding: 0 0 110px;            /* вот этим двигаем ниже/выше */
+  text-align:center;
+  color:#fff;
+}
+
+@media (max-width: 720px){
+  .heroInner{ padding-bottom: 90px; }  /* на телефоне чуть выше, чтобы влезали кнопки */
+}
 
     /* ✅ "Свадьба" как на примере — над именами */
-    .heroScript{
-      font-family: var(--script);
-      font-size: clamp(56px, 12vw, 120px);
-      line-height: 1;
-      margin: 0 0 8px;
-      color: rgba(215,177,156,.95);
-      transform: rotate(-6deg);
-      display:inline-block;
-      white-space: nowrap;
-      pointer-events:none;
-      text-shadow:
-        0 10px 30px rgba(0,0,0,.38),
-        0 0 18px rgba(215,177,156,.22);
-    }
+/* ===== HERO: full-screen фото + текст поверх ===== */
+.hero{
+  min-height: 100vh;
+  position:relative;
+  overflow:hidden;
+  background:#000;
+}
+
+/* фон */
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(0,0,0,var(--hero-dark)), rgba(0,0,0,var(--hero-dark))),
+    var(--hero-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform:none; /* НЕ увеличиваем */
+  z-index:0;
+}
+
+/* “туман” снизу */
+.hero::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:0;
+  height: 180px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.55));
+  z-index:1;
+  pointer-events:none;
+}
+
+/* ✅ главное: опускаем блок вниз */
+.heroInner{
+  position:relative;
+  z-index:2;
+  min-height: 100vh;
+  display:flex;
+  align-items:flex-end;          /* вниз */
+  justify-content:center;        /* по центру по горизонтали */
+  padding: 0 0 110px;            /* вот этим двигаем ниже/выше */
+  text-align:center;
+  color:#fff;
+}
+
+@media (max-width: 720px){
+  .heroInner{ padding-bottom: 90px; }  /* на телефоне чуть выше, чтобы влезали кнопки */
+}
 
     .heroNames{
       font-family: var(--serif);
@@ -506,12 +550,13 @@
 <body>
 
   <!-- HERO -->
-  <section class="hero" id="top">
-    <div class="heroInner">
-      <div class="wrap">
+<section class="hero" id="top">
+  <div class="heroInner">
+    <div class="wrap">
+      <div class="heroStack">
         <div class="heroScript">Свадьба</div>
         <h1 class="heroNames">АННА &amp; ЛЕОНИД</h1>
-        <p class="heroDateLine">17 ИЮНЯ 2026</p>
+        <p class="heroDate">17 ИЮНЯ 2026</p>
 
         <div class="heroActions">
           <a class="btn btnPrimary" href="#rsvp">Подтвердить присутствие</a>
@@ -520,7 +565,8 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <div class="paper">
 
@@ -973,3 +1019,4 @@
 
 </body>
 </html>
+
